@@ -1,0 +1,107 @@
+/* style.css — LifeSaver (medical, professional) */
+
+:root{
+  --brand:#c71f2d;
+  --brand-dark:#9e1620;
+  --muted:#7b7b7b;
+  --card:#ffffff;
+  --bg:#fff6f6;
+  --glass: rgba(255,255,255,0.8);
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: linear-gradient(180deg, #fff 0%, var(--bg) 100%);
+  color:#222;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* container */
+.container{max-width:1100px;margin:28px auto;padding:0 20px}
+
+/* navbar */
+.navbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:14px 18px;
+  border-radius:12px;
+  background: linear-gradient(90deg, rgba(199,31,45,0.04), rgba(255,255,255,0.02));
+  box-shadow: 0 8px 26px rgba(10,10,10,0.04);
+}
+.brand{display:flex;gap:12px;align-items:center;text-decoration:none;color:var(--brand);font-weight:800;font-size:18px}
+.brand .dot{width:16px;height:16px;border-radius:50%;background:var(--brand);box-shadow:0 4px 14px rgba(199,31,45,0.18)}
+.nav-links{display:flex;gap:12px;align-items:center}
+.nav-links a{text-decoration:none;color:#333;padding:8px 12px;border-radius:8px;font-weight:600}
+.nav-links a:hover{background:rgba(199,31,45,0.06);color:var(--brand-dark)}
+
+/* dashboard hero */
+.hero{
+  display:flex;
+  gap:28px;
+  align-items:center;
+  justify-content:space-between;
+  margin-top:22px;
+}
+.h-title{margin:0;font-size:28px}
+.h-sub{color:var(--muted);margin-top:8px}
+
+/* cards */
+.card{
+  background:var(--card);
+  border-radius:12px;
+  padding:18px;
+  box-shadow: 0 12px 30px rgba(12,12,12,0.04);
+}
+
+/* dashboard stats */
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}
+.stat{padding:18px;border-radius:10px;background:linear-gradient(180deg,#fff,#fff7f7);text-align:center}
+.stat .num{font-size:22px;font-weight:800;color:var(--brand)}
+.stat .label{color:var(--muted);margin-top:6px}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:10px;padding:10px 16px;border-radius:10px;border:0;font-weight:700;cursor:pointer;text-decoration:none}
+.btn-primary{background:linear-gradient(180deg,var(--brand),var(--brand-dark));color:#fff;box-shadow:0 10px 22px rgba(199,31,45,0.14)}
+.btn-outline{background:transparent;border:1px solid rgba(199,31,45,0.08);color:var(--brand)}
+
+/* form */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form-grid .full{grid-column:1/-1}
+label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
+input[type="text"], input[type="number"], input[type="tel"]{
+  width:100%;padding:12px;border-radius:10px;border:1px solid #ffdede;background:#fff;font-size:15px;
+}
+
+/* search + results + map */
+.search-row{display:flex;gap:12px;align-items:center;margin-top:12px;flex-wrap:wrap}
+#results{list-style:none;padding:0;margin-top:14px;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.result-card{background:#fff;padding:14px;border-radius:10px;border:1px solid rgba(199,31,45,0.06);box-shadow:0 8px 22px rgba(10,10,10,0.04);cursor:pointer;display:flex;flex-direction:column;gap:8px}
+.result-meta{display:flex;justify-content:space-between;align-items:center}
+.blood-pill{padding:6px 10px;border-radius:999px;font-weight:800;font-size:13px;color:#111}
+.small{font-size:13px;color:var(--muted)}
+.note{color:var(--muted);font-size:13px;margin-top:10px}
+
+/* modal */
+.modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.5);display:none;align-items:center;justify-content:center;z-index:999}
+.modal{background:#fff;width:460px;max-width:96%;border-radius:12px;padding:18px;box-shadow:0 18px 40px rgba(0,0,0,0.25)}
+.modal .close{float:right;border:0;background:transparent;font-size:18px;cursor:pointer}
+.modal .actions{display:flex;gap:8px;margin-top:12px}
+
+/* map */
+#map{width:100%;height:560px;border-radius:12px;box-shadow:0 12px 30px rgba(10,10,10,0.06);margin-top:14px}
+
+/* responsive */
+@media (max-width:900px){
+  .hero{flex-direction:column;align-items:flex-start}
+  .grid-3{grid-template-columns:repeat(2,1fr)}
+  .form-grid{grid-template-columns:1fr}
+}
+@media (max-width:520px){
+  .grid-3{grid-template-columns:1fr}
+  .nav-links{display:none}
+}

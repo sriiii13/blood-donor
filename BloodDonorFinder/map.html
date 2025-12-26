@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>LifeSaver — Map</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+</head>
+<body>
+  <div class="container">
+    <header class="navbar">
+      <a class="brand" href="index.html"><span class="dot"></span>LifeSaver</a>
+      <nav class="nav-links">
+        <a href="index.html">Dashboard</a>
+        <a href="register.html">Register</a>
+        <a href="find.html">Find</a>
+      </nav>
+    </header>
+
+    <main style="margin-top:18px;">
+      <div class="card">
+        <h2 style="margin:0 0 6px 0;">Donor Map</h2>
+        <p class="note">All registered donors with location are shown below. Click a marker for details.</p>
+
+        <div id="map"></div>
+      </div>
+    </main>
+  </div>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script type="module" src="map.js"></script>
+</body>
+</html>

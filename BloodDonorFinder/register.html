@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>LifeSaver — Register</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <header class="navbar">
+      <a class="brand" href="index.html"><span class="dot"></span>LifeSaver</a>
+      <nav class="nav-links">
+        <a href="index.html">Dashboard</a>
+        <a href="find.html">Find</a>
+        <a href="map.html">Map</a>
+      </nav>
+    </header>
+
+    <main style="margin-top:18px;">
+      <div class="card">
+        <h2 style="margin:0 0 6px 0;">Register as Donor</h2>
+        <p class="note">Allow location access to save your location for quick matching.</p>
+
+        <form id="registerForm" style="margin-top:12px;">
+          <div class="form-grid">
+            <div>
+              <label for="name">Full name</label>
+              <input id="name" type="text" placeholder="e.g. Ramesh Kumar" required>
+            </div>
+
+            <div>
+              <label for="age">Age</label>
+              <input id="age" type="number" placeholder="e.g. 28" min="18" max="75" required>
+            </div>
+
+            <div>
+              <label for="bloodGroup">Blood Group</label>
+              <input id="bloodGroup" type="text" placeholder="e.g. A+ / O-" required>
+            </div>
+
+            <div>
+              <label for="phone">Phone number</label>
+              <input id="phone" type="tel" placeholder="10-digit mobile number" required>
+            </div>
+
+            <div class="full">
+              <label for="city">City</label>
+              <input id="city" type="text" placeholder="City (e.g. Chennai)" required>
+            </div>
+
+            <input type="hidden" id="latitude">
+            <input type="hidden" id="longitude">
+
+            <div class="full form-actions">
+              <button id="registerBtn" class="btn btn-primary" type="submit">Register</button>
+              <button type="reset" class="btn btn-outline">Reset</button>
+            </div>
+          </div>
+        </form>
+
+        <p class="note">You will see a success message when registration completes.</p>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // eager location prompt
+    if(navigator.geolocation){
+      navigator.geolocation.getCurrentPosition((pos)=>{
+        document.getElementById('latitude').value = pos.coords.latitude;
+        document.getElementById('longitude').value = pos.coords.longitude;
+      },(err)=>{
+        console.warn('Location not available',err);
+      },{enableHighAccuracy:true,maximumAge:60000});
+    }
+  </script>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>

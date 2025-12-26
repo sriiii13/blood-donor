@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Find Donors - LifeSaver</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      background: #f4f7fb;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #d32f2f;
+      color: white;
+      text-align: center;
+      padding: 20px 0;
+      font-size: 28px;
+      letter-spacing: 1px;
+    }
+    .container {
+      width: 90%;
+      margin: 30px auto;
+      max-width: 1200px;
+    }
+    .search-bar {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 25px;
+    }
+    .search-bar input {
+      width: 300px;
+      padding: 10px 15px;
+      border: 1px solid #ccc;
+      border-radius: 25px;
+      outline: none;
+      font-size: 16px;
+    }
+    .donor-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .donor-card {
+      background: #fff;
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: 0.3s;
+      text-align: center;
+    }
+    .donor-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+    .blood-group {
+      font-size: 32px;
+      font-weight: bold;
+      color: #d32f2f;
+      margin-bottom: 10px;
+    }
+    .donor-card h3 {
+      font-size: 20px;
+      margin: 5px 0;
+      color: #333;
+    }
+    .donor-card p {
+      font-size: 15px;
+      margin: 4px 0;
+      color: #555;
+    }
+    .sos-btn {
+      margin-top: 12px;
+      padding: 10px 20px;
+      background: #25D366;
+      color: white;
+      border: none;
+      border-radius: 25px;
+      font-size: 15px;
+      cursor: pointer;
+      transition: 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .sos-btn:hover {
+      background: #1eb35d;
+    }
+    .sos-btn img {
+      width: 20px;
+      height: 20px;
+    }
+  </style>
+</head>
+<body>
+  <header>🩸 LifeSaver - Find Donors</header>
+
+  <div class="container">
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Search by blood group or city..." />
+    </div>
+
+    <div class="donor-grid" id="donorList">
+      <!-- Donors will load here -->
+    </div>
+  </div>
+
+  <script type="module" src="find.js"></script>
+</body>
+</html>
