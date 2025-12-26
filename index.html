@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>LifeSaver — Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <header class="navbar">
+      <a class="brand" href="index.html"><span class="dot"></span>LifeSaver</a>
+      <nav class="nav-links">
+        <a href="index.html">Dashboard</a>
+        <a href="register.html">Register</a>
+        <a href="find.html">Find</a>
+        <a href="map.html">Map</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div class="hero-left">
+        <h1 class="h-title">LifeSaver — Connect donors with people in need</h1>
+        <p class="h-sub">A simple and fast tool to locate blood donors nearby. Register once and help save lives.</p>
+        <div style="margin-top:16px;">
+          <a class="btn btn-primary" href="find.html">Find Donor</a>
+          <a class="btn btn-outline" href="register.html">Register as Donor</a>
+        </div>
+      </div>
+
+      <div style="width:360px;">
+        <div class="card">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div>
+              <div class="small">Total donors</div>
+              <div id="totalDonors" class="num" style="font-size:28px;font-weight:800;color:var(--brand)">0</div>
+            </div>
+            <div style="text-align:right">
+              <div class="small">Cities</div>
+              <div id="totalCities" class="num" style="font-size:20px;font-weight:800;color:var(--brand)">0</div>
+            </div>
+          </div>
+          <p class="note" style="margin-top:12px;">LifeSaver stores donor locations to help find nearby donors quickly.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="grid-3" style="margin-top:20px;">
+      <div class="card stat">
+        <div class="num" id="statRecent">0</div>
+        <div class="label">Recent donors</div>
+      </div>
+      <div class="card stat">
+        <div class="num" id="statAplus">–</div>
+        <div class="label">Common blood group</div>
+      </div>
+      <div class="card stat">
+        <div class="num" id="statPlaceholder">–</div>
+        <div class="label">Ready to help</div>
+      </div>
+    </div>
+
+    <footer style="margin-top:28px;text-align:center;color:var(--muted);">© <span id="yr"></span> LifeSaver</footer>
+  </div>
+
+  <!-- Firebase small script to fill stats -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+    import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAyXu14PCVSGq3fiXAxo4Ztr_lSS5Bwp6Q",
+      authDomain: "blooddonorfinder-430f2.firebaseapp.com",
+      databaseURL: "https://blooddonorfinder-430f2-default-rtdb.firebaseio.com",
+      projectId: "blooddonorfinder-430f2",
+      storageBucket: "blooddonorfinder-430f2.firebasestorage.app",
+      messagingSenderId: "825196202463",
+      appId: "1:825196202463:web:4c181548e3e2f1c6a"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    async function loadStats(){
+      try {
+        const snap = await get(ref(db, 'donors'));
+        if(!snap.exists()){
+          document.getElementById('totalDonors').textContent = '0';
+          document.getElementById('totalCities').textContent = '0';
+          document.getElementById('statRecent').textContent = '0';
+          return;
+        }
+        const data = snap.val();
+        const keys = Object.keys(data);
+        document.getElementById('totalDonors').textContent = keys.length;
+
+        // count distinct cities
+        const cities = new Set();
+        keys.forEach(k=>{ if(data[k].city) cities.add(data[k].city.trim().toLowerCase()); });
+        document.getElementById('totalCities').textContent = cities.size;
+
+        // recent donors (last 5 by createdAt)
+        const donorsArr = keys.map(k=>({k, ...data[k]}));
+        donorsArr.sort((a,b)=> (b.createdAt||0) - (a.createdAt||0));
+        document.getElementById('statRecent').textContent = Math.min(donorsArr.length,5);
+
+        // most common blood group
+        const freq = {};
+        donorsArr.forEach(d=>{ const g=(d.bloodGroup||'').toUpperCase(); if(g){ freq[g]=(freq[g]||0)+1 }});
+        let top = '-', topCount = 0;
+        for(const g in freq){ if(freq[g]>topCount){ top=g; topCount=freq[g]; } }
+        document.getElementById('statAplus').textContent = top || '-';
+
+      } catch(err){
+        console.error(err);
+      }
+    }
+
+    document.getElementById('yr').textContent = new Date().getFullYear();
+    loadStats();
+  </script>
+</body>
+</html>
